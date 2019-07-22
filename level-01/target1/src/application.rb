@@ -106,7 +106,8 @@ class Department #class department
   end
 
   #View section
-  def sect_a_view 
+  def sect_a_view
+  	@@temp = "" 
     for i in (0..(@@count_a - 1))
       @@temp += "\n" + s_name_list_a[i] + " - " + roll_a[i].to_s
     end
@@ -114,6 +115,7 @@ class Department #class department
   end
 
   def sect_b_view
+  	@@temp = ""
     for i in (0..(@@count_b - 1))
       @@temp += "\n" + s_name_list_b[i] + " - " + roll_b[i].to_s
     end
@@ -121,6 +123,7 @@ class Department #class department
   end
 
   def sect_c_view
+  	@@temp = ""
     for i in (0..(@@count_c - 1))
       @@temp += "\n" + s_name_list_c[i] + " - " + roll_c[i].to_s
     end
@@ -128,20 +131,20 @@ class Department #class department
   end
 
   def dept_view
-    sect_a_view
-    sect_b_view
-    sect_c_view
+   return sect_a_view+sect_b_view+sect_c_view
   end
 
   #add students to a particular section
+  
   def add_to_a(sname,dept)
     @@sec = "A"
     section["A"] -= 1
     @@count_a += 1
-    @@roll_no = assign_rollno(@@count_a,@@sec,dept)
-    roll_a<<@@roll_no
     @s_name_list_a<<sname
     @s_name_list_a.sort!
+    @@inx = s_name_list_a.find_index(sname)
+    @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
+    roll_a<<assign_rollno(@@count_a,@@sec,dept)
     @@dept_students_count +=1
     return enroll_statements1(@@sec,@@roll_no) 
   end
@@ -150,10 +153,11 @@ class Department #class department
     @@sec = "B"
     section["B"] -= 1
     @@count_b += 1
-    @@roll_no = assign_rollno(@@count_b,@@sec,dept)
-    roll_b<<@@roll_no
     @s_name_list_b<<sname
     @s_name_list_b.sort!
+    @@inx = s_name_list_b.find_index(sname)
+    @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
+    roll_b<<assign_rollno(@@count_b,@@sec,dept)
     @@dept_students_count +=1
     return enroll_statements1(@@sec,@@roll_no) 
   end
@@ -162,10 +166,11 @@ class Department #class department
     @@sec = "C"
     section["C"] -= 1
     @@count_c += 1
-    @@roll_no = assign_rollno(@@count_c,@@sec,dept)
-    roll_c<<@@roll_no
     @s_name_list_c<<sname
     @s_name_list_c.sort!
+   	@@inx = s_name_list_c.find_index(sname)
+    @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
+    roll_c<<assign_rollno(@@count_c,@@sec,dept)
     @@dept_students_count +=1
     return enroll_statements1(@@sec,@@roll_no) 
   end
@@ -173,32 +178,35 @@ class Department #class department
   def add_s(sname,dept)
     if section["A"] >= 1
       @@sec = "A"
-      section["A"] -= 1
-      @@count_a += 1
-      @@roll_no = assign_rollno(@@count_a,@@sec,dept)
-      roll_a<<@@roll_no
-      @s_name_list_a<<sname
-      @s_name_list_a.sort!
-      @@dept_students_count +=1
+    	section["A"] -= 1
+    	@@count_a += 1
+    	@s_name_list_a<<sname
+    	@s_name_list_a.sort!
+    	@@inx = s_name_list_a.find_index(sname)
+    	@@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
+    	roll_a<<assign_rollno(@@count_a,@@sec,dept)
+    	@@dept_students_count +=1
     
     elsif section["B"] >= 1
       @@sec = "B"
       section["B"] -= 1
       @@count_b += 1
-      @@roll_no = assign_rollno(@@count_b,@@sec,dept)
-      roll_b<<@@roll_no
       @s_name_list_b<<sname
       @s_name_list_b.sort!
+      @@inx = s_name_list_b.find_index(sname)
+      @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
+      roll_b<<assign_rollno(@@count_b,@@sec,dept)
       @@dept_students_count +=1
     
     elsif section["C"] >= 1
       @@sec = "C"
       section["C"] -= 1
       @@count_c += 1
-      @@roll_no = assign_rollno(@@count_c,@@sec,dept)
-      roll_c<<@@roll_no
       @s_name_list_c<<sname
       @s_name_list_c.sort!
+   	  @@inx = s_name_list_c.find_index(sname)
+      @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
+      roll_c<<assign_rollno(@@count_c,@@sec,dept)
       @@dept_students_count +=1
 
     else
@@ -304,7 +312,7 @@ class Application
         "Error: Seats are not available in CIVIL"
       end
     else
-      "Error: Seats are not available in #{student_department}"
+      "Error: Incorrect student department : #{student_department}"
     end
   end
   
@@ -410,7 +418,7 @@ class Application
         end
       end
     else
-      "Error: Seats are not available"
+      "Error: Student does not exist"
     end
   end
 
@@ -426,6 +434,8 @@ class Application
       @@t + civil.dept_view
     when "MECH"
       @@t + mech.dept_view
+    else 
+    	"Incorrect department"
     end
   end
 
@@ -441,6 +451,8 @@ class Application
         @@t + eee.sect_b_view
       when "C"
         @@t + eee.sect_c_view
+      else
+      	"Incorrect Section"
       end
     when "CSE"
       case section
@@ -450,6 +462,8 @@ class Application
         @@t + cse.sect_b_view
       when "C"
         @@t + cse.sect_c_view
+      else
+      	"Incorrect Section"
       end
     when "CIVIL"
       case section
@@ -459,6 +473,8 @@ class Application
         @@t + civil.sect_b_view
       when "C"
         @@t + civil.sect_c_view
+      else
+      	"Incorrect Section"
       end
     when "MECH"
       case section
@@ -468,7 +484,11 @@ class Application
         @@t + mech.sect_b_view
       when "C"
         @@t + mech.sect_c_view
+      else 
+      	"Incorrect Section"
       end
+    else
+    	"Incorrect Department"
     end
   end
 

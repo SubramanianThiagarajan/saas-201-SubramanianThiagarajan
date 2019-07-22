@@ -73,7 +73,7 @@ loop do
       student_dept = gets.chomp
       section_question_3
       section = gets.chomp
-      puts papplication.section_view student_dept, section
+      puts application.section_view student_dept, section
     when 3
       common_question_1
       student_name = gets.chomp
