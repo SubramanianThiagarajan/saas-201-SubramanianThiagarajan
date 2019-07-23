@@ -17,14 +17,15 @@ class Department #class department
 
   def initialize
     self.section = {"A"=>10,"B"=>10,"C"=>10}
-    @@temp = ""
-    @@sec = 0
-    @@ind = 0
-    @@dept_students_count = 0
-    @@roll_no = 0
-    @@count_a = 0
-    @@count_b = 0
-    @@count_c = 0
+    @temp = ""
+    @sec = 0
+    @inx = 0
+    @ind = 0
+    @dept_students_count = 0
+    @roll_no = 0
+    @count_a = 0
+    @count_b = 0
+    @count_c = 0
     self.s_name = []
     self.roll_a = []
     self.roll_b = []
@@ -47,172 +48,172 @@ class Department #class department
     return s_name
   end
   
-  def ret_c_a 
-    return @@count_a
+  def ret_c_a #return count of A 
+    return @count_a
   end
 
-  def ret_c_b
-    return @@count_b
+  def ret_c_b	#return count of B
+    return @count_b
   end
 
-  def ret_c_c
-    return @@count_c
+  def ret_c_c	#return count of C
+    return @count_c
   end
 
   def ret_dep_stu_count #return total number of students in a department
-    return @@dept_students_count
+    return @dept_students_count
   end
 
   def getdetail_sname(name_stu,dept) #get details of the student
     if s_name_list_a.include?(name_stu)
-      @@ind = s_name_list_a.find_index(name_stu)
-      g_sname(name_stu,"A",dept,roll_a[@@ind])
+      @ind = s_name_list_a.find_index(name_stu)
+      g_sname(name_stu,"A",dept,roll_a[@ind])
 
     elsif s_name_list_b.include?(name_stu)
-      @@ind = s_name_list_b.find_index(name_stu)
-      g_sname(name_stu,"B",dept,roll_b[@@ind])
+      @ind = s_name_list_b.find_index(name_stu)
+      g_sname(name_stu,"B",dept,roll_b[@ind])
 
     elsif s_name_list_c.include?(name_stu)
-      @@ind = s_name_list_c.find_index(name_stu)
-      g_sname(name_stu,"C",dept,roll_c[@@ind])
+      @ind = s_name_list_c.find_index(name_stu)
+      g_sname(name_stu,"C",dept,roll_c[@ind])
     end
   end
 
   def remove_stu(nm) #remove student from the previous section 
     if s_name_list_a.include?(nm)
-      @@ind = s_name_list_a.find_index(nm)
-      s_name_list_a.delete_at(@@ind)
+      @ind = s_name_list_a.find_index(nm)
+      s_name_list_a.delete_at(@ind)
       roll_a.delete_at(-1)
-      @@dept_students_count -=1
-      @@count_a -=1
+      @dept_students_count -= 1
+      @count_a -= 1
       section["A"] -= 1
 
     elsif s_name_list_b.include?(nm)
-      @@ind = s_name_list_b.find_index(nm)
-      s_name_list_b.delete_at(@@ind)
+      @ind = s_name_list_b.find_index(nm)
+      s_name_list_b.delete_at(@ind)
       roll_b.delete_at(-1)
-      @@dept_students_count -=1
-      @@count_b -=1
+      @dept_students_count -= 1
+      @count_b -= 1
       section["B"] -= 1
 
     elsif s_name_list_c.include?(nm)
-      @@ind = s_name_list_c.find_index(nm)
-      s_name_list_c.delete_at(@@ind)
+      @ind = s_name_list_c.find_index(nm)
+      s_name_list_c.delete_at(@ind)
       roll_c.delete_at(-1)
-      @@dept_students_count -=1
-      @@count_c -=1
+      @dept_students_count -= 1
+      @count_c -= 1
       section["C"] -= 1
     end
   end
 
   #View section
   def sect_a_view
-  	@@temp = "" 
-    for i in (0..(@@count_a - 1))
-      @@temp += "\n" + s_name_list_a[i] + " - " + roll_a[i].to_s
+  	@temp = "" 
+    for i in (0..(@count_a - 1))
+      @temp += "\n" + s_name_list_a[i].to_s + " - " + roll_a[i].to_s
     end
-    return @@temp
+    return @temp
   end
 
   def sect_b_view
-  	@@temp = ""
-    for i in (0..(@@count_b - 1))
-      @@temp += "\n" + s_name_list_b[i] + " - " + roll_b[i].to_s
+  	@temp = ""
+    for i in (0..(@count_b - 1))
+      @temp += "\n" + s_name_list_b[i].to_s + " - " + roll_b[i].to_s
     end
-    return @@temp
+    return @temp
   end
 
   def sect_c_view
-  	@@temp = ""
-    for i in (0..(@@count_c - 1))
-      @@temp += "\n" + s_name_list_c[i] + " - " + roll_c[i].to_s
+  	@temp = ""
+    for i in (0..(@count_c - 1))
+      @temp += "\n" + s_name_list_c[i].to_s + " - " + roll_c[i].to_s
     end
-    return @@temp
+    return @temp
   end
 
   def dept_view
-   return sect_a_view+sect_b_view+sect_c_view
+   return sect_a_view + sect_b_view + sect_c_view
   end
 
   #add students to a particular section
   
   def add_to_a(sname,dept)
-    @@sec = "A"
+    @sec = "A"
     section["A"] -= 1
-    @@count_a += 1
+    @count_a += 1
     @s_name_list_a<<sname
     @s_name_list_a.sort!
-    @@inx = s_name_list_a.find_index(sname)
-    @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
-    roll_a<<assign_rollno(@@count_a,@@sec,dept)
-    @@dept_students_count +=1
-    return enroll_statements1(@@sec,@@roll_no) 
+    @inx = s_name_list_a.find_index(sname)
+    @roll_no = assign_rollno(@inx + 1,@sec,dept)
+    roll_a<<assign_rollno(@count_a,@sec,dept)
+    @dept_students_count +=1
+    return enroll_statements1(@sec,@roll_no) 
   end
 
   def add_to_b(sname,dept)
-    @@sec = "B"
+    @sec = "B"
     section["B"] -= 1
-    @@count_b += 1
+    @count_b += 1
     @s_name_list_b<<sname
     @s_name_list_b.sort!
-    @@inx = s_name_list_b.find_index(sname)
-    @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
-    roll_b<<assign_rollno(@@count_b,@@sec,dept)
-    @@dept_students_count +=1
-    return enroll_statements1(@@sec,@@roll_no) 
+    @inx = s_name_list_b.find_index(sname)
+    @roll_no = assign_rollno(@inx + 1,@sec,dept)
+    roll_b<<assign_rollno(@count_b,@sec,dept)
+    @dept_students_count +=1
+    return enroll_statements1(@sec,@roll_no) 
   end
 
   def add_to_c(sname,dept)
-    @@sec = "C"
+    @sec = "C"
     section["C"] -= 1
-    @@count_c += 1
+    @count_c += 1
     @s_name_list_c<<sname
     @s_name_list_c.sort!
-   	@@inx = s_name_list_c.find_index(sname)
-    @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
-    roll_c<<assign_rollno(@@count_c,@@sec,dept)
-    @@dept_students_count +=1
-    return enroll_statements1(@@sec,@@roll_no) 
+   	@inx = s_name_list_c.find_index(sname)
+    @roll_no = assign_rollno(@inx + 1,@sec,dept)
+    roll_c<<assign_rollno(@count_c,@sec,dept)
+    @dept_students_count +=1
+    return enroll_statements1(@sec,@roll_no) 
   end
 
   def add_s(sname,dept)
     if section["A"] >= 1
-      @@sec = "A"
+      @sec = "A"
     	section["A"] -= 1
-    	@@count_a += 1
+    	@count_a += 1
     	@s_name_list_a<<sname
     	@s_name_list_a.sort!
-    	@@inx = s_name_list_a.find_index(sname)
-    	@@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
-    	roll_a<<assign_rollno(@@count_a,@@sec,dept)
-    	@@dept_students_count +=1
+    	@inx = s_name_list_a.find_index(sname)
+    	@roll_no = assign_rollno(@inx + 1,@sec,dept)
+    	roll_a<<assign_rollno(@count_a,@sec,dept)
+    	@dept_students_count +=1
     
     elsif section["B"] >= 1
-      @@sec = "B"
+      @sec = "B"
       section["B"] -= 1
-      @@count_b += 1
+      @count_b += 1
       @s_name_list_b<<sname
       @s_name_list_b.sort!
-      @@inx = s_name_list_b.find_index(sname)
-      @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
-      roll_b<<assign_rollno(@@count_b,@@sec,dept)
-      @@dept_students_count +=1
+      @inx = s_name_list_b.find_index(sname)
+      @roll_no = assign_rollno(@inx + 1,@sec,dept)
+      roll_b<<assign_rollno(@count_b,@sec,dept)
+      @dept_students_count +=1
     
     elsif section["C"] >= 1
-      @@sec = "C"
+      @sec = "C"
       section["C"] -= 1
-      @@count_c += 1
+      @count_c += 1
       @s_name_list_c<<sname
       @s_name_list_c.sort!
-   	  @@inx = s_name_list_c.find_index(sname)
-      @@roll_no = assign_rollno(@@inx + 1,@@sec,dept)
-      roll_c<<assign_rollno(@@count_c,@@sec,dept)
-      @@dept_students_count +=1
+   	  @inx = s_name_list_c.find_index(sname)
+      @roll_no = assign_rollno(@inx + 1,@sec,dept)
+      roll_c<<assign_rollno(@count_c,@sec,dept)
+      @dept_students_count +=1
 
     else
       return "Seats are not available in #{dept}"
     end
-    return enroll_statements(dept,@@sec,@@roll_no)
+    return enroll_statements(dept,@sec,@roll_no)
   end
 end
 
