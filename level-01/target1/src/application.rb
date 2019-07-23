@@ -179,14 +179,14 @@ class Department #class department
   def add_s(sname,dept)
     if section["A"] >= 1
       @sec = "A"
-    	section["A"] -= 1
-    	@count_a += 1
-    	@s_name_list_a<<sname
-    	@s_name_list_a.sort!
-    	@inx = s_name_list_a.find_index(sname)
-    	@roll_no = assign_rollno(@inx + 1,@sec,dept)
-    	roll_a<<assign_rollno(@count_a,@sec,dept)
-    	@dept_students_count +=1
+      section["A"] -= 1
+      @count_a += 1
+      @s_name_list_a<<sname
+      @s_name_list_a.sort!
+      @inx = s_name_list_a.find_index(sname)
+      @roll_no = assign_rollno(@inx + 1,@sec,dept)
+      roll_a<<assign_rollno(@count_a,@sec,dept)
+      @dept_students_count +=1
     
     elsif section["B"] >= 1
       @sec = "B"
