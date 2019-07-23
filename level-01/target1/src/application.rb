@@ -169,7 +169,7 @@ class Department #class department
     @count_c += 1
     @s_name_list_c<<sname
     @s_name_list_c.sort!
-   	@inx = s_name_list_c.find_index(sname)
+		@inx = s_name_list_c.find_index(sname)
     @roll_no = assign_rollno(@inx + 1,@sec,dept)
     roll_c<<assign_rollno(@count_c,@sec,dept)
     @dept_students_count +=1
@@ -178,7 +178,7 @@ class Department #class department
 
   def add_s(sname,dept)
     if section["A"] >= 1
-      @sec = "A"
+			@sec = "A"
     	section["A"] -= 1
     	@count_a += 1
     	@s_name_list_a<<sname
