@@ -1,0 +1,91 @@
+<section class="section hero is-warning">
+	<div class="container">
+		<div class="header-intro">
+			<h1 class="has-text-centered is-uppercase is-size-2" style="font-size: xx-large; font-family:courier;">Contact Me</h1>
+		</div>
+
+		<%= form_for(@contact) do |f| %>
+		<div class="columns is-centered">
+			<div class="column is-half">
+				<div class="field">
+					<label class="label">Name</label>
+					<div class="control has-icons-left is-expanded">
+						<%= f.text_field :name, class: "input is-medium", placeholder: "Name", required: true %><br/>
+						<span class="icon is-small is-left">
+							<i class="fas fa-user"></i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="column is-half">
+				<div class="field">
+					<label class="label">Email</label>
+					<div class="control has-icons-left is-expanded">
+						<%= f.email_field :email, class: "input is-medium", placeholder: "Email", required: true %><br/>
+						<span class="icon is-small is-left">
+							<i class="fas fa-envelope"></i>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="columns is-centered">
+			<div class="column">
+				<div class="field">
+					<label class="label">Message</label>
+					<div class="control is-expanded">
+						<%= f.text_area :message, class: "textarea is-medium", placeholder: "Message", required: true %><br/>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="columns is-pulled-right">
+			<div class="column is-one-third">
+				<div class="field">
+					<div class="control">
+						<%= f.submit "Submit", class: "button is-medium is-rounded is-info" %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
+	<hr>
+	<div class="container">
+		<h1 class="has-text-centered is-size-4" style="font-size: xx-large; font-family:courier; font-weight: bold;">You can follow us at:</h1>
+	</div>
+	<br>
+	<nav class="level">
+		<div class="level-item has-text-centered">
+			<div>
+				<a class="button is-success" href="https://github.com/SubramanianThiagarajan">
+					<span class="icon">
+						<i class="fab fa-github"></i>
+					</span>
+					<span>GitHub</span>
+				</a>
+			</div>
+		</div>
+		<div class="level-item has-text-centered" href="https://twitter.com/subbuthiagu">
+			<div>
+				<a class="button is-primary">
+					<span class="icon">
+						<i class="fab fa-twitter"></i>
+					</span>
+					<span>Twitter</span>
+				</a>
+			</div>
+		</div>
+		<div class="level-item">
+			<div>
+				<a class="button" style="color: #4875B4;" href="https://www.linkedin.com/in/subramanian-thiagarajan-231043166/">
+					<span class="icon">
+						<i class="fab fa-linkedin-in"></i>
+					</span>
+					<span>Linkedin</span>
+				</a>
+			</div>
+		</div>
+	</nav>
+</section>

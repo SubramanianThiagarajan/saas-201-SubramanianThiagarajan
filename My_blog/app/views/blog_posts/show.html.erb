@@ -1,0 +1,56 @@
+<br>
+<div class="columns is-centered">
+	<div class="box has-border" style="width: 50rem;">
+		<br>
+		<h1 class="text is-size-2" style="font-family: courier; color: green;"><%= @blog_post.title %></h1>
+		<p>
+			Created on: <%= @blog_post.created_at.strftime("%B %d %Y, %l:%M%P") %>
+		</p>
+		<% if current_user.admin? %>
+		<div class="field is-grouped is-pulled-right">
+			<p class="control">
+				<%= link_to "Edit", edit_blog_post_path(@blog_post), :class => 'button is-success'%>
+			</p>
+			<p>
+				<%= link_to "Delete", blog_post_path(@blog_post),method: :delete, data: { confirm: "Are you sure?"}, :class => 'button is-danger'%>
+			</p>
+		</div>
+		<% end %>
+		<br>
+		<hr>
+		
+		<div class="content">
+			<p class="text is-size-4" style="font-family: Comic Sans MS;"><%= @blog_post.content %></p>
+		</div>
+
+		<br>
+		<hr>
+		<% pre_like = @blog_post.likes.find { |like| like.user_id == current_user.id} %>
+		<% if pre_like %>
+		<%= link_to blog_post_like_path(@blog_post, pre_like), method: :delete do %>
+		<span class="icon is-medium fa-2x" style="color: red;">
+			<i class="fas fa-heart"></i>
+		</span>
+		<% end %>
+		<% else %>
+		<%= link_to blog_post_likes_path(@blog_post), method: :post do %>
+		<span class="icon is-medium fa-2x" style="color: grey;">
+			<i class="fas fa-heart"></i>
+		</span>
+		<% end %>
+		<% end %>
+		<p class="text is-size-5"><%= @blog_post.likes.count %> <%= (@blog_post.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+		<section class="section comments">
+			<div class="container">
+				<h2 class="subtitle is-5"><strong><%= @blog_post.comments.count %></strong> Comments</h2>
+				<%= render @blog_post.comments %>
+				<div class="comment-form">
+					<hr />
+					<h3 class="subtitle is-3">Leave a Reply</h3>
+					<%= render 'comments/form' %>
+				</div>
+			</div>
+
+		</section>
+	</div>
+	<br>

@@ -1,0 +1,15 @@
+// Place all the styles related to the StaticPages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$footer-background-color:#342E37;
+$footer-padding:2rem 0rem;
+
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Roboto+Slab|Open+Sans');
+
+$subtitle-line-height: 1.5;
+$family-sans-serif: 'Open Sans', Helvetica, Arial, sans-serif;
+$family-monospace: 'Source Code Pro', monospace;
+
+
+@import "bulma";
