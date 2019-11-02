@@ -1,0 +1,27 @@
+<div class="container has-text-centered">
+	<br>
+	<h1 class="heading is-size-3" style="font-family: verdana;">--Create BlogPost--</h1>
+</div>
+<div class="container"  style="width: 60rem;">
+	<br>
+<%= form_for(@blog_post) do |f| %>
+<div class="box">
+<div class="form-group">
+	<div class="field">
+		<div class="control">
+			<%= f.text_field :title, class: "input is-info is-large", placeholder: "Title", required: true %><br/>
+		</div>
+	</div>
+	<br>
+	<div class="field">
+		<div class="control">
+			<%= f.text_area :content, class: "textarea is-medium is-success",rows: 10, placeholder: "Content", required: true %><br/>
+		</div>
+	</div>
+	<%= f.submit text: "create", class: "button is-info is-outlined has-text-weight-bold" %>
+
+</div>
+</div>
+<% end %>
+<br>
+</div>

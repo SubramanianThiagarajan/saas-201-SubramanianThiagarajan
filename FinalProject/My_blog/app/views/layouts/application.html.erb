@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Subbu's Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+
+  <section class="hero is-fullwidth">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container">
+          <div class="image is-96x96"><%= image_tag("profile/logo.png") %></div>
+          <div class="navbar-brand" style="font-size: xx-large; font-family:courier; font-weight: bold;">
+            <a class="navbar-item has-text-warning" href="<%= root_path %>" on_click= reload()>SY's Blog</a>
+          </div>
+
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item" href="<%= about_me_index_path %>">
+                <span class="icon is-large">
+                  <i class="fas fa-home fas fa-lg 1.33em"></i>
+                </span>
+                <span>About Us</span></a>
+                <a class="navbar-item" href="<%= blog_posts_path %>">
+                  <span class="icon is-large">
+                    <span class="fa-stack">
+                      <i class="fas fa-circle fa-stack-2x"></i>
+                      <i class="fas fa-flag fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </span>
+                  <span>My Posts</span></a>
+
+
+                  <a class="navbar-item" href="<%= new_contact_path %>">
+                    <span class="icon is-large">
+                      <i class="fas fa-info-circle fas fa-lg 1.33em"></i>
+                  </span>
+                    <span>Contact Me</span></a>
+                  <span class="navbar-item">
+                    <a class="button is-medium" href="https://github.com/SubramanianThiagarajan">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>GitHub</span>
+                    </a>
+                  </span>    
+                </div>
+
+                <div class="navbar-end">
+                  <div class="navbar-item">
+                    <% if user_signed_in? %>
+                    Logged in as-<strong><%= current_user.email %></strong> |
+                    <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %> |
+                    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-item'  %>
+                    <% else %>
+                    <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-item'  %> |
+                    <%= link_to "Login", new_user_session_path, :class => 'navbar-item'  %>
+                    <% end %>
+                  </div>
+
+                </div>
+              </div>
+            </nav>
+            <hr class="navbar-divider">
+            <div class="container">
+              <% if notice %>
+              <p class="help is-success"><%= notice %></p>
+              <% elsif alert %>
+              <p class="help is-danger"><%= alert %></p>
+              <% else %>
+              <% flash.each do |key, value| %>
+              <%= content_tag(:p, value, class: "help is-#{key}") %>
+              <% end %>
+              <% end %>
+              <%= yield %>
+            </div>
+          </div>
+        </section>
+        <div class="hero-foot">
+          <hr class="navbar-divider">
+          <section class="section is-small">
+            <div class="container">
+              <div class="columns is-vcentered">
+                <div class="column">
+                  <p class="title">Blog by Subramanian and Yadhuraj</p>
+                  <p class="subtitle is-4 has-text-grey-light">Suggestions are welcome..Please provide your email id.
+                  We'll contact you</p>
+                </div>
+
+                <div class="column">
+                  <form action="https://mail.jgthms.com/subscribe" method="POST" accept-charset="utf-8">
+                    <div class="field is-grouped">
+                      <div class="control has-icons-left is-expanded">
+                        <input type="email" value="" name="email" class="input is-medium is-flat is-rounded" placeholder="email address" required>
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                      </div>
+
+                      <div class="control">
+                        <button class="button is-medium is-link">
+                          <strong>Email us</strong>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="footer">
+              <nav class="level">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <hr class="navbar-divider">
+                    <p class="heading" style="color: yellow; font-size: large; font-family: verdana;">Blogs</p>
+                    <p class="title" style="color: yellow; font-size: large; font-family: verdana;"><%= BlogPost.count %></p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <hr class="navbar-divider">
+                    <p class="heading" style="color: yellow; font-size: large; font-family: verdana;">Users</p>
+                    <p class="title" style="color: yellow; font-size: large; font-family: verdana;"><%= User.count %></p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <hr class="navbar-divider">
+                    <p class="heading" style="color: yellow; font-size: large; font-family: verdana;">Likes</p>
+                    <p class="title" style="color: yellow; font-size: large; font-family: verdana;"><%= Like.count %></p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <hr class="navbar-divider">
+                    <p class="heading" style="color: yellow; font-size: large; font-family: verdana;">Visitor Count</p>
+                    <a href="https://www.freecounterstat.com" title="web counter code"><img src="https://counter10.wheredoyoucomefrom.ovh/private/freecounterstat.php?c=x2e8pa51zm3xsw72zg2saqangyqebx39" border="0" title="web counter code" alt="web counter code"></a>
+                  </div>
+                </div>
+              </nav>
+              <br>
+              <div class="copyright has-text-centered is-white">
+                <p class="text" style="color: white;">Copyright © Subbu <span id="year"></span></p>
+              </div>
+            </div>                      
+          </section>
+
+        </div>
+
+      </nav>
+    </body>
+    </html>
