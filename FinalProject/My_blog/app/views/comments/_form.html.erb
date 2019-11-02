@@ -1,0 +1,14 @@
+<%= form_for([@blog_post, @blog_post.comments.build]) do |f| %>
+<div class="field">
+  <div class="control">
+    <%= f.text_field :name, class: 'input', placeholder: "Name", required: :true %>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <%= f.text_area :comments, class: 'textarea', row: 1,placeholder: "Comment", required: :true%>
+  </div>
+</div>
+<%= f.button :Comment, class: "button is-primary is-outlined" %>
+<% end %>

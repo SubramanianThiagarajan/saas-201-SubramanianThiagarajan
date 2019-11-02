@@ -1,0 +1,70 @@
+<div class="columns is-centered">
+  <div class="column is-half">
+    <br><br>
+    <div class="box is-pulled-right" style="height: 42rem; width: 40rem; background-color: is-primary;">
+      <h2 class="text is-bold" style="font-family: courier; font-size: x-large; font-weight: bold;">Edit <%= resource_name.to_s.humanize %></h2>
+      <br><br>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <p class="text" style="font-family: verdana;">Email</p>
+        <p class="control has-icons-left">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => 'input', :placeholder => 'Email'%>
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </p>
+      </div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+      <br>
+      <div class="field">
+        <p class="text" style="font-family: verdana;">Password</p><i>(leave blank if you don't want to change it)</i>
+        <p class="control has-icons-left">
+          <%= f.password_field :password, autofocus: true, autocomplete: "new-password" , :class => 'input', :placeholder => 'Password' %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+      </div>
+      <br>
+      <div class="field">
+        <p class="text" style="font-family: verdana;">Confirm Password</p>
+        <p class="control has-icons-left">
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => 'input', :placeholder => 'Confirm Password'%>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p class="text" style="font-family: verdana;">Old Password</p>
+        <p class="control has-icons-left">
+          <%= f.password_field :current_password, autocomplete: "current-password", :class => 'input', :placeholder => 'Old Password'%>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <%= f.submit "Update", :class => "button is-success is-outlined is-pulled-right" %>
+        </p>
+      </div>
+      <% end %>
+      <br>
+      <p class="text" style="font-family: verdana;">Cancel my account</p>
+      <br>
+      <p class="text" style="font-family: verdana;">Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete , :class => "button is-danger is-outlined is-pulled-left" %></p>
+      <br><br>
+      <%= link_to "Back", :back %>
+      
+    </div>
+  </div>
+</div>
+<br>

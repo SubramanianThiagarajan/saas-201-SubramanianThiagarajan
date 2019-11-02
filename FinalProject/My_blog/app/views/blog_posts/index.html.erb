@@ -1,0 +1,43 @@
+<div class="container has-text-centered">
+  <br>
+  <h1 class="heading is-size-2" style="font-family: verdana;">--My Blogs--</h1>
+  <% if current_user.admin? %>
+  <div class="container level-right">
+    <br>
+    <a class="button is-info is-size-4" style="font-weight: bold;" href="<%= new_blog_post_path %>">Create</a>
+  </div>
+  <% end %>
+</div>
+
+<br/>
+
+<div class="container"  style="width: 40rem;">
+  <!-- Example row of columns -->
+  <div class="container">
+    <% @blog_posts.each do |blogpost| %>
+
+    <div class="box">
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong><%= blogpost.title %></strong>
+          </p>
+
+        </div>
+        <p class="text is-pulled-right"><%= blogpost.created_at.strftime("%B %d %Y, %l:%M%P") %></p>
+        <nav class="level">
+          <div class="level-left">
+            <a href="<%= blog_post_path(id: blogpost.id)%>"><p class="control">
+              <button class="button is-info is-outlined">
+                View Post
+              </button>
+            </p>
+          </a>
+        </div>
+        <br>
+      </nav>
+    </div>
+  </div>
+  <% end %>
+</div>
+</div>
